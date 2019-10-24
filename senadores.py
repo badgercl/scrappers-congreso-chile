@@ -21,6 +21,7 @@ partidos = {
 }
 
 output = []
+indice = {}
 for senador in senadores:
 	nombre = senador.find('parlnombre').text
 	apellido = senador.find('parlapellidopaterno').text
@@ -35,6 +36,15 @@ for senador in senadores:
 		'partido': partido,
 		'mail': mail
 		})
+	indice[circunscripcion] = {
+		'nombre': "{} {}".format(apellido, apellido),
+		'region': region,
+		'partido': partido,
+		'mail': mail
+		}
 
 with open('output/senadores.json', 'w') as json_file:
     json.dump(output, json_file)
+    
+with open('output/senadores_index.json', 'w') as json_file:
+    json.dump(indice, json_file)

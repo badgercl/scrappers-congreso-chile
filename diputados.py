@@ -45,6 +45,7 @@ partidos = {
 diputados = soup.find_all('li', 'alturaDiputado')
 
 output = []
+indice = {}
 for diputado in diputados:
     nombre = diputado.find('img').attrs['alt']
     mail = diputado.find('a').find('img').attrs['alt']
@@ -58,7 +59,16 @@ for diputado in diputados:
         'distrito': distrito,
         'partido': partidos[partido]
         })
+    indice[distrito] = {
+        'nombre': nombre,
+        'mail': mail,
+        'region': regiones[region],
+        'partido': partidos[partido]
+        }
 
 with open('output/diputados.json', 'w') as json_file:
     json.dump(output, json_file)
+
+with open('output/diputados_index.json', 'w') as json_file:
+    json.dump(indice, json_file)
 
