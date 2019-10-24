@@ -43,7 +43,8 @@ for row in rows:
 		'region': region
 	}
 
+#pp = pprint.PrettyPrinter(indent=4)
+#pp.pprint(comunas)
 
-
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(comunas)
+with open('output/divisiones.json', 'w') as json_file:
+    json.dump(comunas, json_file)
