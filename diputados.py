@@ -59,12 +59,14 @@ for diputado in diputados:
         'distrito': distrito,
         'partido': partidos[partido]
         })
-    indice[distrito] = {
+    if distrito not in indice:
+        indice[distrito] = []
+    indice[distrito].append({
         'nombre': nombre,
         'mail': mail,
         'region': regiones[region],
         'partido': partidos[partido]
-        }
+        })
 
 with open('output/diputados.json', 'w') as json_file:
     json.dump(output, json_file)

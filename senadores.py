@@ -36,15 +36,17 @@ for senador in senadores:
 		'partido': partido,
 		'mail': mail
 		})
-	indice[circunscripcion] = {
+	if circunscripcion not in indice:
+		indice[circunscripcion] = []
+	indice[circunscripcion].append({
 		'nombre': "{} {}".format(apellido, apellido),
 		'region': region,
 		'partido': partido,
 		'mail': mail
-		}
+		})
 
 with open('output/senadores.json', 'w') as json_file:
     json.dump(output, json_file)
-    
+
 with open('output/senadores_index.json', 'w') as json_file:
     json.dump(indice, json_file)
