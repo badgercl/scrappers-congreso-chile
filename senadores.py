@@ -30,7 +30,7 @@ for senador in senadores:
 	partido = partidos[senador.find('partido').text]
 	mail = senador.find('email').text
 	output.append({
-		'nombre': "{} {}".format(apellido, apellido),
+		'nombre': "{} {}".format(nombre, apellido),
 		'region': region,
 		'circunscripcion': circunscripcion,
 		'partido': partido,
@@ -39,7 +39,7 @@ for senador in senadores:
 	if circunscripcion not in indice:
 		indice[circunscripcion] = []
 	indice[circunscripcion].append({
-		'nombre': "{} {}".format(apellido, apellido),
+		'nombre': "{} {}".format(nombre, apellido),
 		'region': region,
 		'partido': partido,
 		'mail': mail
