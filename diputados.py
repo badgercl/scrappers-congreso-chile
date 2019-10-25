@@ -2,10 +2,12 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
 
 url = 'https://www.camara.cl/camara/diputados.aspx'
 res = requests.get(url)
 soup = BeautifulSoup(res.text, 'html.parser')
+p = re.compile('^diputado_detalle\.aspx\?prmid=(\d+)$')
 
 regiones = {'RM': 'Región Metropolitana', 
 'I': 'Tarapacá', 
@@ -47,12 +49,15 @@ diputados = soup.find_all('li', 'alturaDiputado')
 output = []
 indice = {}
 for diputado in diputados:
+
+    dip_id = int(p.match(diputado.find_all('a')[1].attrs['href']).group(1))
     nombre = diputado.find('img').attrs['alt']
     mail = diputado.find('a').find('img').attrs['alt']
     region = diputado.find('ul','links').find_all('li')[0].text.split()[1]
     distrito = diputado.find('ul','links').find_all('li')[1].text.split()[1].replace('N°','')
     partido = diputado.find('ul','links').find_all('li')[2].text.split()[1]
     output.append({
+        'dip_id': dip_id,
         'nombre': nombre,
         'mail': mail,
         'region': regiones[region],
@@ -62,6 +67,7 @@ for diputado in diputados:
     if distrito not in indice:
         indice[distrito] = []
     indice[distrito].append({
+        'dip_id': dip_id,
         'nombre': nombre,
         'mail': mail,
         'region': regiones[region],
