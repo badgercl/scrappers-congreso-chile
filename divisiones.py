@@ -34,7 +34,7 @@ for row in rows:
 		comuna = tds[1].a.text.replace('*', '').strip()
 		regiones[region][circunscripcion][distrito] = [comuna]
 	else:
-		comuna = tds[0].a.text.replace('*', '').strip()
+		comuna = tds[0].a.text.replace('*', '').strip().lower()
 		regiones[region][circunscripcion][distrito].append(comuna)
 
 	comunas[comuna] = {
@@ -43,8 +43,8 @@ for row in rows:
 		'region': region
 	}
 
-#pp = pprint.PrettyPrinter(indent=4)
-#pp.pprint(comunas)
+pp = pprint.PrettyPrinter(indent=4)
+pp.pprint(comunas)
 
 with open('output/divisiones.json', 'w') as json_file:
     json.dump(comunas, json_file)
